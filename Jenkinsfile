@@ -2,10 +2,11 @@ pipeline {
   agent none
   
   stages {
-    agent{
+    
+    stage('Unit Tests'){
+      agent{
     label 'apache'
     }
-    stage('Unit Tests'){
       steps{
       sh 'ant -f test.xml -v'
       junit 'reports/result.xml'
