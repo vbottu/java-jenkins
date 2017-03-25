@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    label 'master'
-  }
+  agent none
   
   stages {
     stage('Unit Tests'){
@@ -15,6 +13,12 @@ pipeline {
       steps {
         sh 'ant -f build.xml -v'
       }
+      post{
+    success{
+      archiveArtifacts artifacts: 'dist/*.jar',fingerprint : true
+    }
+    
+  }
       
     }
     stage('deploy'){
@@ -22,13 +26,17 @@ pipeline {
         sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all"
       }
     }
-    
-  }
-  post{
-    always{
-      archiveArtifacts artifacts: 'dist/*.jar',fingerprint : true
+    stage('Running on CentOS'){
+      agent{
+      label 'CentOS'
+      }
+      steps{
+        sh "wget http://vv25591.mylabserver.com/var/www/html/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
+        sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
+      
+      }
     }
-    
   }
+  
   
 }
