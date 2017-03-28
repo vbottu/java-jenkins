@@ -33,6 +33,7 @@ pipeline {
       label 'apache'
       }
       steps{
+        sh " rm -rf /var/www/html/rectangles/all/${env.BRANCH_NAME}"
         sh " mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}"
         sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}"
       }
