@@ -1,3 +1,4 @@
+/* This class returns the area and perimeter of the rectangle */
 public class Rectangle {
   public int length;
   public int width;
