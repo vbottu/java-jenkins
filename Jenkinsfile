@@ -33,8 +33,7 @@ pipeline {
       label 'apache'
       }
       steps{
-        sh " rm -rf /var/www/html/rectangles/all/${env.BRANCH_NAME}"
-        sh " mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}"
+        
         sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}"
       }
     }
@@ -54,7 +53,7 @@ pipeline {
       }
       steps{
         sh "wget http://vv25591.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
-        sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
+        sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 4 5"
       
       }
     }
